@@ -1,21 +1,21 @@
 language: node_js
-dist: trusty
 node_js: stable
 before_script:
 - npm install --silent bower polymer-cli
-- ./node_modules/.bin/bower install --silent
+- bower install --silent
 addons:
   sauce_connect: true
 script:
 - npm run lint
-- ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-type-form-input:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
-cache:
-  directories:
-  - bower_components
-  - node_modules
+- polymer test --plugin sauce --job-name "raml-type-form-input:${TRAVIS_BRANCH}"
+  --build-number=${TRAVIS_BUILD_NUMBER}
 branches:
   only:
-    - stage
-    - develop
+  - stage
+  - develop
 after_success:
-  - node tasks/ci.js
+- node tasks/ci.js
+env:
+  global:
+  - secure: mvKUja27XxFlad3QP9OkoEg8XyzMW+HbMfQMyhMExE6QJ/YOw4owrqLHZq661JKeQHowHJnpwmW97/O4vPqm+WH0gucG+aUkJmPBP+ujLiLyTZXm/kZa68FbWW4j8r4ZXpQM3gJUS2yTADkfuXO6zz/R23bOtegAPRsfPVZPFDE3Oc1TQ1OpGZfgIS2KDZC3k3pRVEEX7WbnbZlb2D6vlSNBzsEBib1251YsPvD4PMRwUcfpE0+UT7AB7xFOWGxS8yeh2XLSL1+EEqtLKvjyUwQW2R4z8jDDfx3RrFYe1fDpiYaQQcN6UIkeCsiu5FRttIir+PcGRNjqxnJQMEuC8+cbIEIBOmuRDi5YNwjDTjAg6MJ0PzAdAu1wQXTsmJHtIk87DfODJlMp0p6/L+VDRwCOtJc7JvyFImtHgh4PL8sSWU2o8Z5dbnhFckM0D+87f0Ym4S7VrTQVT/m+/nZTgFyww2CYhJVpKUQTbQyhFsOupx0effh+KpUEDYhicT9XQeL8CGLaYekGLywIgVqye4cnBLHtw2xVTaQ68zHNDRGhWcjFn1W8cTO+zD16mhDqEjJlaz82iqOzIo9y57ZN97rWtO61hUZfsuaG+/iLDfG4Uy+t68/EVGIRNXyle/vjR28B9mpbQDJnAEpRB/sdJH3gfD0heCcm2FXC8D4idds=
+  - secure: N0OiZY1BKye6VqxqUrrf2xpfIRaFrkimwWBQZlPoHFiO4ePGRlV5r25kYV6eB7vKdfjHu1K1HsRMtomuXrR8JfPymFzRFgq0do/SrOlMqBMfUwGgWCnRVCfMHLqy5/K4mDa9GpTuCU5y+3MYljEaEONNmp86lUrZ+Bu5qkvK9Btj+Yw+heJWEDtvKMhXj/+pnHBliFmeW5Jz26X5VbIFv/ZKKqo9S/sAB18D/RzC6hieHZjvDg56zCsCbBVrjgm2VWKN8T6Tp3z4adxOmGTt7ahkzGIe38a1DfZI16GrKzkg9xciT2/unoK9V4PwqtGkWPcmpbNGgwwHbCNkEvDOsfHvRP8PUDLpcFzfYO9iQ7LvvJR5LGZXUj50W1svpiMcEzIgIPF543FEjszolcHk9VD5nWKlLYtYkd8wWcqYLqMekA13E+HQ6NhkL1jxt7Poepgu1/ohwuqAdSDMXrTLB8m1k9eYW8rEnrKNbTD8pYOXNQ5PKJfMfX6uWV0FEb/1/+QedrvIZQ3DdEWkZI5H45T289O7ef2+82OjnPo2OxeHBgyoNPCUGU38tjZWkkDYXOJAituOOzvMDmH7YfLQjMPuUEVubBkqUsBt9DDdv/03d7pjbNs5dNMnlAKtJ2ytEfv3J5gJubY7QxHcr1/iBC7jTN5HTMLjG+VXBKOc/hk=
