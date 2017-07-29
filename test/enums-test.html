@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../raml-type-form-input.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <raml-type-form-input></raml-type-form-input>
+      </template>
+    </test-fixture>
+
+    <script>
+    /* global fixture, assert, TestHelpers */
+    suite('Enum type', function() {
+      var element;
+      var model;
+      setup(function() {
+        element = fixture('basic');
+        model = {
+          inputType: 'string',
+          isEnum: true,
+          enum: ['apple', 'banana', 'cherries']
+        };
+        element.model = model;
+        TestHelpers.forceXIfStamp(element);
+      });
+
+      test('isEnum is true', function() {
+        assert.isTrue(element.isEnum);
+      });
+
+      test('isInput is undefined', function() {
+        assert.isUndefined(element.isInput);
+      });
+
+      test('isArray is undefined', function() {
+        assert.isUndefined(element.isArray);
+      });
+
+      test('isBoolean is undefined', function() {
+        assert.isUndefined(element.isBoolean);
+      });
+
+      test('arrayValue is undefined', function() {
+        assert.isUndefined(element.arrayValue);
+      });
+
+      test('Dropdown is rendered', function() {
+        var node = Polymer.dom(element.root).querySelector('paper-dropdown-menu');
+        assert.equal(node.dataset.type, 'enum');
+      });
+
+      test('<label> for array values is not rendered', function() {
+        var node = Polymer.dom(element.root).querySelector('label');
+        assert.notOk(node);
+      });
+
+      test('Has no inputs', function() {
+        var nodes = Polymer.dom(element.root).querySelectorAll('paper-input');
+        assert.lengthOf(nodes, 0);
+      });
+    });
+    </script>
+
+  </body>
+</html>
