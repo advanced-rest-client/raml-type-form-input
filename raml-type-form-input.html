@@ -56,7 +56,7 @@ and `paper-item` to style this element.
 <dom-module id="raml-type-form-input">
   <template strip-whitespace>
     <style>
-     :host([required]) paper-input {
+    :host([required]) paper-input {
       --paper-input-container-label: {
         color: var(--raml-type-form-input-required-label-color, rgba(0, 0, 0, 0.74));
       }
@@ -99,7 +99,7 @@ and `paper-item` to style this element.
     }
     </style>
     <template is="dom-if" if="[[isEnum]]">
-      <paper-dropdown-menu label="[[model.inputLabel]]" name="[[name]]" required="[[model.required]]" data-type="enum">
+      <paper-dropdown-menu label="[[model.inputLabel]]" name="[[name]]" required="[[model.required]]" data-type="enum" no-label-float="[[noLabelFloat]]">
         <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{value}}">
           <template is="dom-repeat" items="[[model.enum]]">
             <paper-item data-value$="[[item]]">[[item]]</paper-item>
@@ -108,7 +108,7 @@ and `paper-item` to style this element.
       </paper-dropdown-menu>
     </template>
     <template is="dom-if" if="[[isBoolean]]">
-      <paper-dropdown-menu label="[[model.inputLabel]]" name="[[name]]" required="[[model.required]]" data-type="boolean">
+      <paper-dropdown-menu label="[[model.inputLabel]]" name="[[name]]" required="[[model.required]]" data-type="boolean" no-label-float="[[noLabelFloat]]">
         <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{value}}">
           <paper-item data-value="true">True</paper-item>
           <paper-item data-value="false">False</paper-item>
@@ -116,14 +116,13 @@ and `paper-item` to style this element.
       </paper-dropdown-menu>
     </template>
     <template is="dom-if" if="[[isInput]]">
-      <paper-input label="[[model.inputLabel]]" value="{{value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" always-float-label="[[model.inputFloatLabel]]" placeholder="[[model.inputPlaceholder]]"></paper-input>
+      <paper-input label="[[model.inputLabel]]" value="{{value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" always-float-label="[[model.inputFloatLabel]]" placeholder="[[model.inputPlaceholder]]" no-label-float="[[noLabelFloat]]"></paper-input>
     </template>
     <template is="dom-if" if="[[isArray]]">
-      <label>[[model.inputLabel]]</label>
+      <label hidden$="[[noLabelFloat]]">[[model.inputLabel]]</label>
       <template is="dom-repeat" items="[[arrayValue]]">
         <div class="array-item">
-          <paper-input label="Parameter value" value="{{item.value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" no-label-float on-input="_arrayValueChanged">
-          </paper-input>
+          <paper-input label="Parameter value" value="{{item.value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" no-label-float on-input="_arrayValueChanged" no-label-float="[[noLabelFloat]]"></paper-input>
           <template is="dom-if" if="[[index]]">
             <span>
               <paper-icon-button class="action-icon" suffix icon="arc:remove-circle-outline" on-tap="_removeArrayValue"></paper-icon-button>
@@ -147,6 +146,9 @@ and `paper-item` to style this element.
     behaviors: [Polymer.IronFormElementBehavior],
 
     properties: {
+      /**
+       * A view model item.
+       */
       model: {
         type: Object,
         observer: '_modelChanged'
@@ -166,7 +168,11 @@ and `paper-item` to style this element.
       // Computed value, True if current item is a boolean value
       isBoolean: Boolean,
       // A value of an array item (only if `isArray` is set)
-      arrayValue: Array
+      arrayValue: Array,
+      /**
+       * When set, prohibits inputs to have floating labels
+       */
+      noLabelFloat: Boolean
     },
 
     observers: [
