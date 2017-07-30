@@ -106,6 +106,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var node = Polymer.dom(element.root).querySelector('paper-input');
         assert.isTrue(node.alwaysFloatLabel);
       });
+
+      test('Will not pass validation for invalid value', function() {
+        element.set('value', 't e s t');
+        TestHelpers.forceXIfStamp(element);
+        assert.isFalse(element.validate());
+      });
+
+      test('Will pass validation for valid value', function() {
+        element.set('value', 'test');
+        TestHelpers.forceXIfStamp(element);
+        assert.isTrue(element.validate());
+      });
     });
     </script>
 

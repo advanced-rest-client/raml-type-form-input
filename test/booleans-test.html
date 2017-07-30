@@ -76,6 +76,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var nodes = Polymer.dom(element.root).querySelectorAll('paper-input');
         assert.lengthOf(nodes, 0);
       });
+
+      test('Always passes validation', function() {
+        assert.isTrue(element.validate());
+      });
     });
     </script>
 

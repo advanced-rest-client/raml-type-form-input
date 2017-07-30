@@ -13,6 +13,7 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
@@ -116,13 +117,13 @@ and `paper-item` to style this element.
       </paper-dropdown-menu>
     </template>
     <template is="dom-if" if="[[isInput]]">
-      <paper-input label="[[model.inputLabel]]" value="{{value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" always-float-label="[[model.inputFloatLabel]]" placeholder="[[model.inputPlaceholder]]" no-label-float="[[noLabelFloat]]"></paper-input>
+      <paper-input label="[[model.inputLabel]]" value="{{value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" always-float-label="[[model.inputFloatLabel]]" placeholder="[[model.inputPlaceholder]]" no-label-float="[[noLabelFloat]]" data-type="input"></paper-input>
     </template>
     <template is="dom-if" if="[[isArray]]">
       <label hidden$="[[noLabelFloat]]">[[model.inputLabel]]</label>
       <template is="dom-repeat" items="[[arrayValue]]">
         <div class="array-item">
-          <paper-input label="Parameter value" value="{{item.value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" no-label-float on-input="_arrayValueChanged" no-label-float="[[noLabelFloat]]"></paper-input>
+          <paper-input label="Parameter value" value="{{item.value}}" required="[[model.required]]" pattern="[[model.pattern]]" name="[[name]]" auto-validate type="[[model.inputType]]" min="[[model.minimum]]" max="[[model.maximum]]" maxlength="[[model.maxLength]]" minlength="[[model.minLength]]" no-label-float on-input="_arrayValueChanged" no-label-float="[[noLabelFloat]]"  data-type="array"></paper-input>
           <template is="dom-if" if="[[index]]">
             <span>
               <paper-icon-button class="action-icon" suffix icon="arc:remove-circle-outline" on-tap="_removeArrayValue"></paper-icon-button>
@@ -143,7 +144,10 @@ and `paper-item` to style this element.
   Polymer({
     is: 'raml-type-form-input',
 
-    behaviors: [Polymer.IronFormElementBehavior],
+    behaviors: [
+      Polymer.IronFormElementBehavior,
+      Polymer.IronValidatableBehavior
+    ],
 
     properties: {
       /**
@@ -291,6 +295,25 @@ and `paper-item` to style this element.
       var repeater = this.$$('template[is="dom-repeat"]');
       var index = repeater.indexForElement(e.target);
       this.removeArrayValue(index);
+    },
+
+    _getValidity: function() {
+      switch (true) {
+        case this.isInput:
+          var input = this.$$('paper-input[data-type="input"]');
+          return input.validate();
+        case this.isArray:
+          var inputs = Polymer.dom(this.root)
+            .querySelectorAll('paper-input[data-type="array"]');
+          for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].validate()) {
+              return false;
+            }
+          }
+          return true;
+        default:
+          return true;
+      }
     }
   });
   </script>
