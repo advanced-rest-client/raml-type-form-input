@@ -1,3 +1,13 @@
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/advanced-rest-client/raml-type-form-input/compare/0.1.3...0.1.4) (2017-07-30)
+
+
+### New
+
+* Added `noLabelFloat` option. ([0c99eb97e41d95372a251019e734b945eccf6c82](https://github.com/advanced-rest-client/raml-type-form-input/commit/0c99eb97e41d95372a251019e734b945eccf6c82))
+
+
+
 <a name="0.1.3"></a>
 ## 0.1.3 (2017-07-29)
 
