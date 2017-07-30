@@ -1,3 +1,13 @@
+<a name="0.1.6"></a>
+## [0.1.6](https://github.com/advanced-rest-client/raml-type-form-input/compare/0.1.5...0.1.6) (2017-07-30)
+
+
+### Fix
+
+* Fixed setting array model values ([81b6afb9bc88ecdabf541d930701f2fc4d55e0a8](https://github.com/advanced-rest-client/raml-type-form-input/commit/81b6afb9bc88ecdabf541d930701f2fc4d55e0a8))
+
+
+
 <a name="0.1.5"></a>
 ## [0.1.5](https://github.com/advanced-rest-client/raml-type-form-input/compare/0.1.4...0.1.5) (2017-07-30)
 
