@@ -199,7 +199,15 @@ and `paper-item` to style this element.
       }
       if (model.isArray) {
         this.isArray = true;
-        this.arrayValue = [];
+        if (model.value && model.value instanceof Array) {
+          this.arrayValue = model.value.map(function(item) {
+            return {
+              value: item
+            };
+          });
+        } else {
+          this.arrayValue = [];
+        }
         return;
       }
       if (model.isBoolean) {
