@@ -1,3 +1,13 @@
+<a name="0.1.8"></a>
+## [0.1.8](https://github.com/advanced-rest-client/raml-type-form-input/compare/0.1.7...0.1.8) (2017-07-30)
+
+
+### New
+
+* Added validation. ([e0bdbb59e7fe489396e58b928cdd0dc74fb8b8b3](https://github.com/advanced-rest-client/raml-type-form-input/commit/e0bdbb59e7fe489396e58b928cdd0dc74fb8b8b3))
+
+
+
 <a name="0.1.7"></a>
 ## [0.1.7](https://github.com/advanced-rest-client/raml-type-form-input/compare/0.1.6...0.1.7) (2017-07-30)
 
