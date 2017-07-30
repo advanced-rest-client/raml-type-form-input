@@ -17,8 +17,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../iron-test-helpers/test-helpers.js"></script>
     <script src="../../iron-test-helpers/mock-interactions.js"></script>
-
-    <!-- Step 1: import the element to test -->
     <link rel="import" href="../raml-type-form-input.html">
   </head>
   <body>
@@ -58,6 +56,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('Passing maximum model property', function() {
         var node = Polymer.dom(element.root).querySelector('paper-input');
         assert.equal(node.max, model.maximum);
+      });
+
+      test('Will not pass validation for invalid value', function() {
+        element.set('value', 1);
+        assert.isFalse(element.validate());
+      });
+
+      test('Will pass validation for valid value', function() {
+        element.set('value', 10);
+        assert.isTrue(element.validate());
       });
     });
     </script>
